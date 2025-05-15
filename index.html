@@ -1,0 +1,158 @@
+<!-- <link rel="stylesheet" href="./src/css/output.css"> -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Validation</title>
+    <link rel="stylesheet" href="./src/css/output.css">
+</head>
+
+<body class="bg-gray-200">
+    <div class="container mx-auto">
+        <div class="flex items-center justify-center min-h-screen px-4">
+            <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-4xl">
+                <h2 class="text-3xl font-bold text-center text-gray-800 mb-2">Registration Form</h2>
+                <p id="fillFormError" class="h-5 text-center font-bold text-sm text-rose-600"></p>
+                <form id="registrationForm" class=" mt-5 space-y-6">
+
+                    <!-- Name Fields -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block font-medium text-gray-700 mb-1">First Name</label>
+                            <input type="text" id="firstName" name="firstName" class="input" placeholder="John"
+                                autocomplete="off" />
+                            <p id="firstNameError" class="h-5 text-sm text-rose-600"></p>
+                            <!-- Error message for First Name -->
+                        </div>
+                        <div>
+                            <label class="block font-medium text-gray-700 mb-1">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" class="input" placeholder="Doe"
+                                autocomplete="off" />
+                            <p id="lastNameError" class="text-sm text-rose-600"></p>
+                        </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="mb-4">
+                        <label class="block font-medium text-gray-700 mb-1">Email</label>
+                        <input type="email" id="email" name="email" class="input" placeholder="you@example.com"
+                            autocomplete="off" />
+                        <p id="emailError" class="h-5 text-sm text-rose-600"></p>
+                    </div>
+
+                    <!-- Passwords -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <!-- Password Field -->
+                        <div class="relative">
+                            <label class="block font-medium text-gray-700 mb-1">Password</label>
+                            <input type="password" id="password" name="password" class="p-2 passwordInput input border"
+                                oninput="toggleEyeIcon()" />
+                            <!-- Eye Icon Button -->
+                            <button type="button" onclick="togglePassword()" id="togglePass"
+                                class="hidden absolute right-2 bottom-8 cursor-pointer">
+                                <svg id="eyeIcon" class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor"
+                                    stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M12 4.5c-4.81 0-9.01 2.89-11 7.5
+                1.99 4.61 6.19 7.5 11 7.5s9.01-2.89 11-7.5
+                c-1.99-4.61-6.19-7.5-11-7.5z"></path>
+                                    <!-- <circle cx="12" cy="12" r="3"></circle> -->
+                                </svg>
+                            </button>
+                            <!-- Error Message -->
+                            <p id="passwordError" class="text-sm text-rose-600"></p>
+                        </div>
+
+                        <div class="relative">
+                            <label class="block font-medium text-gray-700 mb-1">Confirm Password</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword"
+                                class="input passwordInput" oninput="toggleEyeIcon()" />
+                            <!-- Eye Icon Button -->
+                            <button type="button" onclick="toggleConfirmPassword()" id="toggleConfirmPass"
+                                class="hidden absolute right-2 bottom-8 cursor-pointer">
+                                <svg id="eyeIconConfirm" class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor"
+                                    stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M12 4.5c-4.81 0-9.01 2.89-11 7.5
+                1.99 4.61 6.19 7.5 11 7.5s9.01-2.89 11-7.5
+                c-1.99-4.61-6.19-7.5-11-7.5z"></path>
+                                    <!-- <circle cx="12" cy="12" r="3"></circle> -->
+                                </svg>
+                            </button>
+                            <p id="confirmPasswordError" class="h-5 text-sm text-rose-600"></p>
+                        </div>
+                    </div>
+
+                    <!-- Date of Birth -->
+                    <div class="mb-4">
+                        <label class="block font-medium text-gray-700 mb-1">Date of Birth</label>
+                        <input type="date" id="dob" name="dob" class="input" />
+                        <p id="dobError" class="h-5 text-sm text-rose-600"></p>
+                    </div>
+
+                    <!-- Gender -->
+                    <div>
+                        <label class="mb-2 font-medium text-gray-700">Gender</label>
+                        <div class="flex flex-col gap-1">
+                            <div class="flex gap-3">
+                                <label><input type="radio" name="gender" value="Male" class="mr-2"
+                                        oninput="toggleInput()" /> Male</label>
+                                <label><input type="radio" name="gender" value="Female" class="mr-2"
+                                        oninput="toggleInput()" /> Female</label>
+                                <label>
+                                    <input type="radio" name="gender" value="Other" class="mr-2"
+                                        oninput="toggleInput()"> Other
+                                </label>
+                            </div>
+                            <p id="genderError" class="h-5 text-sm text-rose-600"></p>
+                            <!-- Hidden Input Field (Appears Below) -->
+                            <div>
+                                <input type="text" id="extraInput" name="otherInput" class="input hidden"
+                                    placeholder="Enter your gender..." autocomplete="off" />
+                                <p id="otherGenderError" class="h-5 text-sm text-rose-600"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Textarea -->
+                    <div class="mb-4">
+                        <label class="block font-medium text-gray-700 mb-1">Your Message</label>
+                        <textarea id="message" name="message" class="input" rows="4"
+                            placeholder="Write your message..."></textarea>
+                        <p id="messageError" class="h-5 text-sm text-rose-600"></p>
+                    </div>
+
+                    <!-- File Upload -->
+                    <div class="mb-4">
+                        <label class="block font-medium text-gray-700 mb-1">Upload Image</label>
+                        <input type="file" id="fileUpload" name="file" accept="image/*" class="file-input" />
+                        <p id="fileUploadError" class="h-5 text-sm text-rose-600"></p>
+                    </div>
+
+                    <!-- Checkboxes -->
+                    <div class="mb-4">
+                        <label><input type="checkbox" name="checkbox" class="mr-2 checkbox"
+                                value="Accept the Agreement" />
+                            Accept the Agreement</label><br />
+                        <label><input type="checkbox" name="checkbox" class="mr-2 checkbox" value="Read the liscence" />
+                            Read the liscence</label><br />
+                        <label><input type="checkbox" name="checkbox" class="mr-2 checkbox"
+                                value="Terms and Conditions" />
+                            Terms and Conditions</label><br />
+                        <p id="checkboxError" class="h-5 text-sm text-rose-600"></p>
+                    </div>
+
+                    <!-- Submit -->
+                    <div>
+                        <button type="submit" id="submitButton"
+                            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="./src/js/main.js"></script>
+</body>
+
+</html>
